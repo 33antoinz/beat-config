@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Signature Beat Program™</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .font-title { font-family: 'Orbitron', sans-serif; }
+        
+        .bubble-select { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(255,255,255,0.08); 
+            background: rgba(255,255,255,0.02);
+            cursor: pointer; 
+        }
+        .bubble-select:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); transform: translateY(-3px); }
+        .bubble-active { border-color: #fbbf24 !important; background: rgba(251, 191, 36, 0.1) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1); }
+        
+        .step { display: none; }
+        .step-active { display: block; animation: fadeIn 0.5s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        .premium-card { border: 1px solid rgba(251, 191, 36, 0.3); position: relative; }
+        .crown-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #fbbf24; color: black; font-size: 10px; font-weight: 800; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="max-w-4xl w-full">
+        <header class="text-center mb-10">
+            <h1 class="font-title text-xl md:text-2xl tracking-[0.2em] mb-2 uppercase">Artist Signature</h1>
+            <div class="h-1 w-20 bg-blue-600 mx-auto mb-4"></div>
+            <p id="step-label" class="text-[10px] text-gray-500 tracking-[0.3em] uppercase">Configuration du projet</p>
+        </header>
+
+        <div id="configurator">
+            <div class="step step-active" id="step1">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('basic', 'https://whop.com/checkout/plan_Ctt05lv02XPsf')">
+                        <h3 class="font-title text-sm mb-1">Basic</h3>
+                        <p class="text-2xl font-bold mb-4">199,99€</p>
+                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter">
+                            <li><i class="fas fa-check mr-2 text-blue-500"></i> 3 Beats</li>
+                            <li><i class="fas fa-check mr-2 text-blue-500"></i> Standard Mix</li>
+                        </ul>
+                    </div>
+
+                    <div class="bubble-select p-6 rounded-xl premium-card" onclick="selectLicense('premium', 'https://whop.com/checkout/plan_SidU8ORMFJTPJ')">
+                        <div class="crown-tag"><i class="fas fa-crown mr-1"></i> Recommended</div>
+                        <h3 class="font-title text-sm mb-1 text-yellow-500">Premium</h3>
+                        <p class="text-2xl font-bold mb-4">299,99€</p>
+                        <ul class="text-[10px] text-gray-400 space-y-2 uppercase tracking-tighter font-semibold">
+                            <li><i class="fas fa-check mr-2 text-yellow-500"></i> 3 Beats</li>
+                            <li><i class="fas fa-check mr-2 text-yellow-500"></i> HQ Audio Files</li>
+                        </ul>
+                    </div>
+
+                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('premium-plus', 'https://whop.com/checkout/plan_pnOXCBk7b4Ab9')">
+                        <h3 class="font-title text-sm mb-1">Premium+</h3>
+                        <p class="text-2xl font-bold mb-4">349,99€</p>
+                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter">
+                            <li><i class="fas fa-check mr-2 text-blue-500"></i> 5 Beats</li>
+                            <li><i class="fas fa-check mr-2 text-blue-500"></i> Track Stems</li>
+                        </ul>
+                    </div>
+
+                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('pro', 'https://whop.com/checkout/plan_JZtCsBfZFq2F')">
+                        <h3 class="font-title text-sm mb-1">Pro</h3>
+                        <p class="text-2xl font-bold mb-4">499,99€</p>
+                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter font-bold text-blue-400">
+                            <li><i class="fas fa-star mr-2"></i> 5 Beats + 1 FREE</li>
+                            <li><i class="fas fa-star mr-2"></i> Full Rights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" id="step2">
+                <h2 class="text-center font-title text-lg mb-8 uppercase tracking-widest text-gray-400">Quel est le Mood ?</h2>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'Dark & Aggressive')">Dark</div>
+                    <div class="bubble-select px-8 py-4 rounded-full text-blue-400 border-blue-500/30" onclick="nextStep(2, 'Melodic & Emotional')">Melodic</div>
+                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'Club Banger')">Banger</div>
+                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'R&B / Smooth')">Smooth</div>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
+                <h2 class="text-center font-title text-lg mb-8 uppercase tracking-widest text-gray-400">Tempo (BPM)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bubble-select p-6 rounded-2xl text-center" onclick="nextStep(3, 'Slow (80-110)')">80 - 110</div>
+                    <div class="bubble-select p-6 rounded-2xl text-center border-blue-500/50" onclick="nextStep(3, 'Mid (120-150)')">120 - 150</div>
+                    <div class="bubble-select p-6 rounded-2xl text-center" onclick="nextStep(3, 'Fast (160+)')">160+</div>
+                </div>
+            </div>
+
+            <div class="step" id="step4">
+                <div class="max-w-xl mx-auto">
+                    <textarea id="finalDesc" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 mb-4 h-48 outline-none focus:border-blue-500 text-sm italic" placeholder="Décrivez votre vision (Artiste de référence, instruments spécifiques...)"></textarea>
+                    <button onclick="redirectToWhop()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-xl text-lg uppercase tracking-tighter shadow-2xl shadow-blue-500/20 transition-all">
+                        Finaliser sur Whop <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                    </button>
+                    <p class="text-[9px] text-center text-gray-600 mt-4 uppercase tracking-[0.2em]">Paiement sécurisé via Whop.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selections = { checkoutUrl: '', summary: {} };
+
+        function selectLicense(plan, url) {
+            selections.checkoutUrl = url;
+            selections.summary.plan = plan;
+            nextStep(1, plan);
+        }
+
+        function nextStep(current, value) {
+            selections.summary[`step${current}`] = value;
+            document.getElementById(`step${current}`).classList.remove('step-active');
+            const next = current + 1;
+            const nextEl = document.getElementById(`step${next}`);
+            if(nextEl) {
+                nextEl.classList.add('step-active');
+                document.getElementById('step-label').innerText = `Étape ${next} sur 4`;
+            }
+        }
+
+        function redirectToWhop() {
+            const desc = document.getElementById('finalDesc').value;
+            const data = `PLAN: ${selections.summary.plan.toUpperCase()} | MOOD: ${selections.summary.step2} | BPM: ${selections.summary.step3} | NOTES: ${desc}`;
+            
+            // Redirection vers Whop avec les données injectées
+            const finalUrl = `${selections.checkoutUrl}?experience_customization=${encodeURIComponent(data)}`;
+            window.location.href = finalUrl;
+        }
+    </script>
+</body>
+</html>
