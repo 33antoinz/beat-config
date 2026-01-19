@@ -6,107 +6,140 @@
     <title>Artist Signature Beat Program™</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
-        
-        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .font-title { font-family: 'Orbitron', sans-serif; }
-        
-        .bubble-select { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            border: 1px solid rgba(255,255,255,0.08); 
-            background: rgba(255,255,255,0.02);
-            cursor: pointer; 
+        :root {
+            --accent: #3b82f6;
+            --premium: #fbbf24;
         }
-        .bubble-select:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); transform: translateY(-3px); }
-        .bubble-active { border-color: #fbbf24 !important; background: rgba(251, 191, 36, 0.1) !important; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1); }
+        body { 
+            background-color: #020617; 
+            color: #f8fafc; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden;
+        }
+        .font-pro { font-family: 'Syncopate', sans-serif; }
         
+        /* Design des cartes et bulles */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .glass-morphism:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        .active-card {
+            border-color: var(--premium) !important;
+            background: rgba(251, 191, 36, 0.05) !important;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
+        }
+        
+        /* Transitions de étapes */
         .step { display: none; }
-        .step-active { display: block; animation: fadeIn 0.5s ease-out; }
+        .step-active { display: block; animation: fadeIn 0.8s ease forwards; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .premium-card { border: 1px solid rgba(251, 191, 36, 0.3); position: relative; }
-        .crown-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #fbbf24; color: black; font-size: 10px; font-weight: 800; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; }
+        input, textarea {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--accent) !important;
+            outline: none;
+        }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
+<body class="flex items-center justify-center min-h-screen p-4 md:p-10">
 
-    <div class="max-w-4xl w-full">
-        <header class="text-center mb-10">
-            <h1 class="font-title text-xl md:text-2xl tracking-[0.2em] mb-2 uppercase">Artist Signature</h1>
-            <div class="h-1 w-20 bg-blue-600 mx-auto mb-4"></div>
-            <p id="step-label" class="text-[10px] text-gray-500 tracking-[0.3em] uppercase">Configuration du projet</p>
+    <div class="max-w-5xl w-full">
+        <header class="text-center mb-16">
+            <h1 class="font-pro text-xl md:text-3xl tracking-[0.4em] mb-4 uppercase">
+                Artist Signature <span class="text-blue-500">Program</span>
+            </h1>
+            <div class="flex justify-center items-center gap-4">
+                <div class="h-[1px] w-12 bg-gray-800"></div>
+                <p id="step-counter" class="text-[10px] tracking-[0.5em] text-gray-500 uppercase font-bold">Step 01 / 04</p>
+                <div class="h-[1px] w-12 bg-gray-800"></div>
+            </div>
         </header>
 
         <div id="configurator">
             <div class="step step-active" id="step1">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('basic', 'https://whop.com/checkout/plan_Ctt05lv02XPsf')">
-                        <h3 class="font-title text-sm mb-1">Basic</h3>
-                        <p class="text-2xl font-bold mb-4">199,99€</p>
-                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter">
-                            <li><i class="fas fa-check mr-2 text-blue-500"></i> 3 Beats</li>
-                            <li><i class="fas fa-check mr-2 text-blue-500"></i> Standard Mix</li>
-                        </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-morphism p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Basic', 'https://whop.com/checkout/plan_Ctt05lv02XPsf')">
+                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Entry</span>
+                        <h3 class="font-pro text-sm my-4">Basic</h3>
+                        <p class="text-2xl font-bold">199,99€</p>
                     </div>
 
-                    <div class="bubble-select p-6 rounded-xl premium-card" onclick="selectLicense('premium', 'https://whop.com/checkout/plan_SidU8ORMFJTPJ')">
-                        <div class="crown-tag"><i class="fas fa-crown mr-1"></i> Recommended</div>
-                        <h3 class="font-title text-sm mb-1 text-yellow-500">Premium</h3>
-                        <p class="text-2xl font-bold mb-4">299,99€</p>
-                        <ul class="text-[10px] text-gray-400 space-y-2 uppercase tracking-tighter font-semibold">
-                            <li><i class="fas fa-check mr-2 text-yellow-500"></i> 3 Beats</li>
-                            <li><i class="fas fa-check mr-2 text-yellow-500"></i> HQ Audio Files</li>
-                        </ul>
+                    <div class="glass-morphism p-8 rounded-3xl cursor-pointer relative border-yellow-500/30 active-card" onclick="selectLicense('Premium', 'https://whop.com/checkout/plan_SidU8ORMFJTPJ')">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black px-4 py-1 rounded-full uppercase">Most Popular</div>
+                        <span class="text-[10px] text-yellow-500 font-bold uppercase tracking-widest">Pro Choice</span>
+                        <h3 class="font-pro text-sm my-4">Premium</h3>
+                        <p class="text-2xl font-bold">299,99€</p>
                     </div>
 
-                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('premium-plus', 'https://whop.com/checkout/plan_pnOXCBk7b4Ab9')">
-                        <h3 class="font-title text-sm mb-1">Premium+</h3>
-                        <p class="text-2xl font-bold mb-4">349,99€</p>
-                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter">
-                            <li><i class="fas fa-check mr-2 text-blue-500"></i> 5 Beats</li>
-                            <li><i class="fas fa-check mr-2 text-blue-500"></i> Track Stems</li>
-                        </ul>
+                    <div class="glass-morphism p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Premium+', 'https://whop.com/checkout/plan_pnOXCBk7b4Ab9')">
+                        <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Elite</span>
+                        <h3 class="font-pro text-sm my-4">Premium+</h3>
+                        <p class="text-2xl font-bold">349,99€</p>
                     </div>
 
-                    <div class="bubble-select p-6 rounded-xl" onclick="selectLicense('pro', 'https://whop.com/checkout/plan_JZtCsBfZFq2F')">
-                        <h3 class="font-title text-sm mb-1">Pro</h3>
-                        <p class="text-2xl font-bold mb-4">499,99€</p>
-                        <ul class="text-[10px] text-gray-500 space-y-2 uppercase tracking-tighter font-bold text-blue-400">
-                            <li><i class="fas fa-star mr-2"></i> 5 Beats + 1 FREE</li>
-                            <li><i class="fas fa-star mr-2"></i> Full Rights</li>
-                        </ul>
+                    <div class="glass-morphism p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Pro', 'https://whop.com/checkout/plan_JZtCsBfZFq2F')">
+                        <span class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Ultimate</span>
+                        <h3 class="font-pro text-sm my-4">Studio Pro</h3>
+                        <p class="text-2xl font-bold">499,99€</p>
                     </div>
                 </div>
             </div>
 
             <div class="step" id="step2">
-                <h2 class="text-center font-title text-lg mb-8 uppercase tracking-widest text-gray-400">Quel est le Mood ?</h2>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'Dark & Aggressive')">Dark</div>
-                    <div class="bubble-select px-8 py-4 rounded-full text-blue-400 border-blue-500/30" onclick="nextStep(2, 'Melodic & Emotional')">Melodic</div>
-                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'Club Banger')">Banger</div>
-                    <div class="bubble-select px-8 py-4 rounded-full" onclick="nextStep(2, 'R&B / Smooth')">Smooth</div>
+                <div class="text-center mb-10">
+                    <h2 class="font-pro text-lg uppercase tracking-widest">Select Mood</h2>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="glass-morphism px-10 py-5 rounded-full cursor-pointer hover:scale-105" onclick="nextStep(2, 'Dark')">Dark</div>
+                    <div class="glass-morphism px-10 py-5 rounded-full cursor-pointer hover:scale-105" onclick="nextStep(2, 'Melodic')">Melodic</div>
+                    <div class="glass-morphism px-10 py-5 rounded-full cursor-pointer hover:scale-105" onclick="nextStep(2, 'Trap/Banger')">Banger</div>
+                    <div class="glass-morphism px-10 py-5 rounded-full cursor-pointer hover:scale-105" onclick="nextStep(2, 'Experimental')">Experimental</div>
                 </div>
             </div>
 
             <div class="step" id="step3">
-                <h2 class="text-center font-title text-lg mb-8 uppercase tracking-widest text-gray-400">Tempo (BPM)</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bubble-select p-6 rounded-2xl text-center" onclick="nextStep(3, 'Slow (80-110)')">80 - 110</div>
-                    <div class="bubble-select p-6 rounded-2xl text-center border-blue-500/50" onclick="nextStep(3, 'Mid (120-150)')">120 - 150</div>
-                    <div class="bubble-select p-6 rounded-2xl text-center" onclick="nextStep(3, 'Fast (160+)')">160+</div>
+                <div class="max-w-md mx-auto">
+                    <h2 class="font-pro text-center text-lg mb-8 uppercase tracking-widest">Contact Details</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 ml-2">Email Address</label>
+                            <input type="email" id="userEmail" class="w-full p-4 rounded-xl mt-1" placeholder="email@example.com">
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase tracking-widest text-gray-500 ml-2">Instagram Username</label>
+                            <input type="text" id="userInsta" class="w-full p-4 rounded-xl mt-1" placeholder="@votrecompte">
+                        </div>
+                        <button onclick="validateContact()" class="w-full py-4 bg-white text-black font-bold rounded-xl mt-4 hover:bg-gray-200 transition">NEXT STEP</button>
+                    </div>
                 </div>
             </div>
 
             <div class="step" id="step4">
-                <div class="max-w-xl mx-auto">
-                    <textarea id="finalDesc" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 mb-4 h-48 outline-none focus:border-blue-500 text-sm italic" placeholder="Décrivez votre vision (Artiste de référence, instruments spécifiques...)"></textarea>
-                    <button onclick="redirectToWhop()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-xl text-lg uppercase tracking-tighter shadow-2xl shadow-blue-500/20 transition-all">
-                        Finaliser sur Whop <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="font-pro text-center text-lg mb-8 uppercase tracking-widest">Project Details</h2>
+                    <textarea id="finalDesc" class="w-full p-6 rounded-2xl h-48 mb-6" placeholder="Describe your vision, reference tracks, specific instruments..."></textarea>
+                    
+                    <button onclick="redirectToWhop()" class="w-full py-6 bg-blue-600 text-white font-black rounded-2xl text-lg tracking-widest hover:bg-blue-700 shadow-2xl shadow-blue-500/20 transition-all uppercase">
+                        Confirm & Purchase
                     </button>
-                    <p class="text-[9px] text-center text-gray-600 mt-4 uppercase tracking-[0.2em]">Paiement sécurisé via Whop.com</p>
                 </div>
             </div>
         </div>
@@ -121,22 +154,32 @@
             nextStep(1, plan);
         }
 
+        function validateContact() {
+            const email = document.getElementById('userEmail').value;
+            const insta = document.getElementById('userInsta').value;
+            if(!email || !insta) {
+                alert("Veuillez remplir tous les champs de contact.");
+                return;
+            }
+            selections.summary.email = email;
+            selections.summary.insta = insta;
+            nextStep(3, 'Contact Saved');
+        }
+
         function nextStep(current, value) {
-            selections.summary[`step${current}`] = value;
             document.getElementById(`step${current}`).classList.remove('step-active');
             const next = current + 1;
             const nextEl = document.getElementById(`step${next}`);
             if(nextEl) {
                 nextEl.classList.add('step-active');
-                document.getElementById('step-label').innerText = `Étape ${next} sur 4`;
+                document.getElementById('step-counter').innerText = `Step 0${next} / 04`;
             }
         }
 
         function redirectToWhop() {
             const desc = document.getElementById('finalDesc').value;
-            const data = `PLAN: ${selections.summary.plan.toUpperCase()} | MOOD: ${selections.summary.step2} | BPM: ${selections.summary.step3} | NOTES: ${desc}`;
+            const data = `PLAN: ${selections.summary.plan} | INSTA: ${selections.summary.insta} | MAIL: ${selections.summary.email} | DESC: ${desc}`;
             
-            // Redirection vers Whop avec les données injectées
             const finalUrl = `${selections.checkoutUrl}?experience_customization=${encodeURIComponent(data)}`;
             window.location.href = finalUrl;
         }
