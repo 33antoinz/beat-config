@@ -47,6 +47,18 @@
             </div>
 
             <div class="step" id="step2">
+                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Genre du projet</h1>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="option-btn" onclick="saveData('genre', 'Trap', 2)">TRAP</div>
+                    <div class="option-btn" onclick="saveData('genre', 'Drill', 2)">DRILL</div>
+                    <div class="option-btn" onclick="saveData('genre', 'R&B', 2)">R&B</div>
+                    <div class="option-btn" onclick="saveData('genre', 'Hip Hop/Rap', 2)">HIP_HOP_RAP</div>
+                    <div class="option-btn" onclick="saveData('genre', 'Electronic', 2)">ELECTRONIC</div>
+                    <div class="option-btn" onclick="saveData('genre', 'Pop', 2)">POP</div>
+                </div>
+            </div>
+
+            <div class="step" id="step3">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">L'ambiance du projet ?</h1>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="option-btn" onclick="saveData('mood', 'Sombre / Dark', 2)">DARK</div>
@@ -56,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="step" id="step3">
+            <div class="step" id="step4">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Vitesse (BPM) ?</h1>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="option-btn" onclick="saveData('bpm', 'Lent (80-110)', 3)">LENT</div>
@@ -66,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="step" id="step4">
+            <div class="step" id="step5">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Vos coordonnées.</h1>
                 <input type="text" id="name" placeholder="Nom Complet">
                 <input type="email" id="email" placeholder="Adresse Email">
@@ -74,7 +86,7 @@
                 <button onclick="nextStep(4)" class="btn-next mt-4">Continuer</button>
             </div>
 
-            <div class="step" id="step5">
+            <div class="step" id="step6">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Détails & Vision.</h1>
                 <textarea id="notes" placeholder="Décrivez votre projet en quelques mots (références, instruments...)" class="h-40"></textarea>
                 <button onclick="finishApplication()" class="btn-next">Envoyer ma candidature</button>
@@ -82,7 +94,7 @@
 
             <div class="step text-center" id="success">
                 <h1 class="text-4xl font-bold mb-6">Merci.</h1>
-                <p class="text-gray-400 text-lg">Votre candidature a été enregistrée. Je reviens vers vous sur Instagram très bientôt.</p>
+                <p class="text-gray-400 text-lg">Votre candidature a été enregistrée. Je reviens vers vous sur Instagram très bientôt. Vous pouvez quitter cette page.</p>
             </div>
         </div>
     </div>
