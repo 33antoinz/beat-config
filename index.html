@@ -7,45 +7,62 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        
+        /* Barre de progression fixe en haut */
+        #progress-bar { 
+            position: fixed; top: 0; left: 0; height: 3px; 
+            background: linear-gradient(to right, #3b82f6, #60a5fa); 
+            width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100;
+        }
+
         .step { display: none; }
-        .step-active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .step-active { display: block; animation: slideUp 0.5s ease forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .option-btn { 
-            border: 1px solid #333; padding: 20px; border-radius: 12px; 
-            text-align: center; transition: all 0.2s; cursor: pointer;
-            font-size: 1.1rem; font-weight: 400;
+            border: 1px solid #222; padding: 22px; border-radius: 14px; 
+            text-align: center; transition: all 0.3s; cursor: pointer;
+            font-size: 1.1rem; font-weight: 400; background: rgba(255,255,255,0.02);
         }
-        .option-btn:hover { border-color: #fff; background: #fff; color: #000; }
+        .option-btn:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); transform: scale(1.02); }
 
         input, textarea { 
-            background: transparent !important; border-bottom: 2px solid #333 !important; 
-            width: 100%; padding: 15px 0; font-size: 1.2rem; color: #fff; outline: none; margin-bottom: 30px;
+            background: transparent !important; border-bottom: 2px solid #222 !important; 
+            width: 100%; padding: 15px 0; font-size: 1.2rem; color: #fff; outline: none; margin-bottom: 35px;
             transition: border-color 0.3s;
         }
         input:focus { border-color: #3b82f6 !important; }
-        .btn-next { background: #fff; color: #000; padding: 20px; border-radius: 50px; font-weight: 700; width: 100%; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; }
+        
+        .btn-next { 
+            background: #fff; color: #000; padding: 22px; border-radius: 50px; 
+            font-weight: 700; width: 100%; text-transform: uppercase; 
+            letter-spacing: 2px; margin-top: 10px; transition: all 0.3s;
+        }
+        .btn-next:hover { transform: scale(1.02); background: #f0f0f0; }
+        .btn-next:disabled { background: #333; color: #666; cursor: not-allowed; }
     </style>
 </head>
 <body class="p-6 md:p-20">
 
+    <div id="progress-bar"></div>
+
     <div class="max-w-3xl mx-auto">
-        <div id="progress" class="text-[10px] tracking-[0.3em] text-gray-600 mb-10 uppercase font-bold">Question 1 / 6</div>
+        <div id="progress-text" class="text-[10px] tracking-[0.4em] text-gray-600 mb-12 uppercase font-black">Step 1 / 6</div>
 
         <div id="configurator">
             <div class="step step-active" id="step1">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Quelle offre vous intéresse ?</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">Quelle offre vous intéresse ?</h1>
                 <div class="grid grid-cols-1 gap-4">
-                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Basic (199€)', 1)">BASIC — 3 exclusive beats MP3 — 199.99€</div>
-                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Premium (299€)', 1)">PREMIUM — 3 exclusive beats WAV — 299.99€</div>
-                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Premium+ (349€)', 1)">PREMIUM+ — 5 exclusive beats WAV + Stems — 349.99€</div>
-                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Pro (499€)', 1)">PRO — 5 exclusive beats WAV + Stems + 1 Free beat — 499.99€</div>
+                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Basic (199€)', 1)">BASIC — 199.99€</div>
+                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Premium (299€)', 1)">PREMIUM — 299.99€</div>
+                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Premium+ (349€)', 1)">PREMIUM+ — 349.99€</div>
+                    <div class="option-btn" onclick="saveData('Plan_Choisi', 'Pro (499€)', 1)">PRO ELITE — 499.99€</div>
                 </div>
             </div>
 
             <div class="step" id="step2">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Genre du projet</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">Genre du projet</h1>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="option-btn" onclick="saveData('Genre', 'Trap', 2)">TRAP</div>
                     <div class="option-btn" onclick="saveData('Genre', 'Drill', 2)">DRILL</div>
@@ -57,27 +74,27 @@
             </div>
 
             <div class="step" id="step3">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">L'ambiance du projet ?</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">L'ambiance ?</h1>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="option-btn" onclick="saveData('Ambiance', 'Sombre / Dark', 3)">DARK</div>
-                    <div class="option-btn" onclick="saveData('Ambiance', 'Mélodique', 3)">MELODIC</div>
-                    <div class="option-btn" onclick="saveData('Ambiance', 'Énergique', 3)">ENERGY</div>
+                    <div class="option-btn" onclick="saveData('Ambiance', 'Dark', 3)">DARK</div>
+                    <div class="option-btn" onclick="saveData('Ambiance', 'Melodic', 3)">MELODIC</div>
+                    <div class="option-btn" onclick="saveData('Ambiance', 'Energy', 3)">ENERGY</div>
                     <div class="option-btn" onclick="saveData('Ambiance', 'Chill', 3)">CHILL</div>
                 </div>
             </div>
 
             <div class="step" id="step4">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Vitesse (BPM) ?</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">Tempo (BPM) ?</h1>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="option-btn" onclick="saveData('BPM', 'Lent (80-110)', 4)">LENT</div>
-                    <div class="option-btn" onclick="saveData('BPM', 'Standard (120-140)', 4)">STANDARD</div>
-                    <div class="option-btn" onclick="saveData('BPM', 'Rapide (150+)', 4)">RAPIDE</div>
-                    <div class="option-btn" onclick="saveData('BPM', 'Au choix', 4)">LIBRE</div>
+                    <div class="option-btn" onclick="saveData('BPM', 'Lent', 4)">LENT</div>
+                    <div class="option-btn" onclick="saveData('BPM', 'Standard', 4)">STANDARD</div>
+                    <div class="option-btn" onclick="saveData('BPM', 'Rapide', 4)">RAPIDE</div>
+                    <div class="option-btn" onclick="saveData('BPM', 'Libre', 4)">LIBRE</div>
                 </div>
             </div>
 
             <div class="step" id="step5">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Vos coordonnées.</h1>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">Identité.</h1>
                 <input type="text" id="name" placeholder="Nom Complet">
                 <input type="email" id="email" placeholder="Adresse Email">
                 <input type="text" id="insta" placeholder="Instagram @compte">
@@ -85,15 +102,15 @@
             </div>
 
             <div class="step" id="step6">
-                <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Détails & Vision.</h1>
-                <textarea id="notes" placeholder="Décrivez votre projet en quelques mots (références, instruments...)" class="h-40"></textarea>
-                <button id="submitBtn" onclick="finishApplication()" class="btn-next">Envoyer ma candidature</button>
+                <h1 class="text-4xl md:text-6xl font-bold mb-12 tracking-tight">Vision.</h1>
+                <textarea id="notes" placeholder="Décrivez votre projet en quelques mots..." class="h-40"></textarea>
+                <button id="submitBtn" onclick="finishApplication()" class="btn-next">Soumettre Candidature</button>
             </div>
 
             <div class="step text-center" id="success">
-                <h1 class="text-4xl font-bold mb-6">Merci.</h1>
-                <p class="text-gray-400 text-lg leading-relaxed">Votre candidature a été envoyée. Je reviens vers vous sur Instagram très bientôt.</p>
-                <p class="text-gray-600 text-sm mt-10 uppercase tracking-widest">Vous pouvez quitter cette page.</p>
+                <h1 class="text-5xl font-bold mb-8">Confirmé.</h1>
+                <p class="text-gray-400 text-xl leading-relaxed max-w-xl mx-auto italic">Candidature reçue. Je reviens vers toi sur Instagram très prochainement.</p>
+                <div class="mt-20 h-px w-20 bg-blue-500 mx-auto"></div>
             </div>
         </div>
     </div>
@@ -105,6 +122,14 @@
             "subject": "Nouvelle Candidature Reçue"
         };
 
+        const totalSteps = 6;
+        updateProgress(1);
+
+        function updateProgress(step) {
+            const percent = ((step - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+        }
+
         function saveData(key, value, currentStep) {
             appData[key] = value;
             nextStep(currentStep);
@@ -115,48 +140,45 @@
             const next = current + 1;
             if(document.getElementById(`step${next}`)) {
                 document.getElementById(`step${next}`).classList.add('step-active');
-                document.getElementById('progress').innerText = `Question ${next} / 6`;
+                document.getElementById('progress-text').innerText = `Step ${next} / ${totalSteps}`;
+                updateProgress(next);
+                window.scrollTo(0, 0);
             }
         }
 
         async function finishApplication() {
             const btn = document.getElementById('submitBtn');
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const insta = document.getElementById('insta').value;
-            const notes = document.getElementById('notes').value;
+            appData.name = document.getElementById('name').value;
+            appData.email = document.getElementById('email').value;
+            appData.insta = document.getElementById('insta').value;
+            appData.notes = document.getElementById('notes').value;
 
-            if(!name || !email || !insta) {
-                alert("Veuillez remplir les informations de contact.");
+            if(!appData.name || !appData.insta) {
+                alert("Remplis au moins ton nom et ton Instagram boss.");
                 return;
             }
 
             btn.innerText = "ENVOI EN COURS...";
             btn.disabled = true;
-
-            appData.name = name;
-            appData.email = email;
-            appData.insta = insta;
-            appData.notes = notes;
+            document.getElementById('progress-bar').style.width = '100%';
 
             try {
                 const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(appData)
                 });
                 
                 if (response.status === 200) {
                     document.getElementById('step6').classList.remove('step-active');
                     document.getElementById('success').classList.add('step-active');
-                    document.getElementById('progress').style.display = 'none';
-                } else {
-                    throw new Error();
+                    document.getElementById('progress-text').style.display = 'none';
+                    document.getElementById('progress-bar').style.background = '#22c55e'; // Devient verte au succès
                 }
             } catch (error) {
-                alert("Erreur lors de l'envoi. Veuillez me contacter directement sur Instagram.");
+                alert("Petit souci réseau, réessaie.");
                 btn.disabled = false;
-                btn.innerText = "Envoyer ma candidature";
+                btn.innerText = "Soumettre Candidature";
             }
         }
     </script>
