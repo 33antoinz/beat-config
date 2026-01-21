@@ -3,161 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist Signature Beat Program™</title>
+    <title>Artist Signature | Application</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #3b82f6; --premium: #fbbf24; }
+        :root { --accent: #3b82f6; }
         body { background-color: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
         .font-pro { font-family: 'Syncopate', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; cursor: pointer; }
         .glass:hover { border-color: var(--accent); transform: translateY(-3px); }
         .step { display: none; }
         .step-active { display: block; animation: fadeIn 0.5s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .active-card { border-color: var(--premium) !important; background: rgba(251, 191, 36, 0.05) !important; box-shadow: 0 0 20px rgba(251, 191, 36, 0.1); }
-        input, textarea { background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; outline: none; }
-        input:focus { border-color: var(--accent) !important; }
+        input, textarea { background: rgba(255,255,255,0.03)!important; border: 1px solid rgba(255,255,255,0.1)!important; color: white!important; width: 100%; padding: 1rem; border-radius: 1rem; outline: none; margin-bottom: 1rem; }
     </style>
 </head>
 <body class="p-6">
-
-    <div class="max-w-5xl w-full">
-        <header class="text-center mb-12">
-            <h1 class="font-pro text-xl md:text-2xl tracking-[0.4em] uppercase">Artist Signature <span class="text-blue-500 font-bold">PRO</span></h1>
-            <p id="step-label" class="text-[10px] text-gray-500 tracking-[0.3em] mt-4 uppercase">Step 01 / 04</p>
-        </header>
-
+    <div class="max-w-4xl w-full">
         <div id="configurator">
             <div class="step step-active" id="step1">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                    <div class="glass p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Basic', 'https://whop.com/checkout/plan_Ctt05lv02XPsf')">
-                        <h3 class="font-pro text-[9px] mb-4 text-gray-500">Basic</h3>
-                        <p class="text-2xl font-bold">199,99€</p>
-                        <div class="h-[1px] w-8 bg-gray-800 mx-auto my-4"></div>
-                        <p class="text-[9px] text-gray-500 uppercase leading-loose">3 Custom Beats<br>Standard Mix</p>
+                <h1 class="font-pro text-center text-xl tracking-[0.4em] mb-12 uppercase text-blue-500">Artist Signature</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                    <div class="glass p-6 rounded-2xl" onclick="selectPlan('Basic', '199€')">
+                        <h3 class="font-pro text-[9px] mb-2 text-gray-500">Basic</h3>
+                        <p class="font-bold uppercase tracking-widest text-sm">199,99€</p>
                     </div>
-                    <div class="glass p-8 rounded-3xl cursor-pointer active-card" onclick="selectLicense('Premium', 'https://whop.com/checkout/plan_SidU8ORMFJTPJ')">
-                        <h3 class="font-pro text-[9px] mb-4 text-yellow-500 font-bold tracking-widest">Premium ✨</h3>
-                        <p class="text-2xl font-bold">299,99€</p>
-                        <div class="h-[1px] w-8 bg-yellow-900 mx-auto my-4"></div>
-                        <p class="text-[9px] text-gray-300 uppercase leading-loose">3 Custom Beats<br>HQ WAV Files<br>License Agreement</p>
+                    <div class="glass p-6 rounded-2xl border-yellow-500/30" onclick="selectPlan('Premium', '299€')">
+                        <h3 class="font-pro text-[9px] mb-2 text-yellow-500">Premium ✨</h3>
+                        <p class="font-bold uppercase tracking-widest text-sm text-yellow-500">299,99€</p>
                     </div>
-                    <div class="glass p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Premium+', 'https://whop.com/checkout/plan_pnOXCBk7b4Ab9')">
-                        <h3 class="font-pro text-[9px] mb-4 text-gray-500">Premium+</h3>
-                        <p class="text-2xl font-bold">349,99€</p>
-                        <div class="h-[1px] w-8 bg-gray-800 mx-auto my-4"></div>
-                        <p class="text-[9px] text-gray-500 uppercase leading-loose">5 Custom Beats<br>Track Stems</p>
+                    <div class="glass p-6 rounded-2xl" onclick="selectPlan('Premium+', '349€')">
+                        <h3 class="font-pro text-[9px] mb-2 text-gray-500">Premium+</h3>
+                        <p class="font-bold uppercase tracking-widest text-sm">349,99€</p>
                     </div>
-                    <div class="glass p-8 rounded-3xl cursor-pointer" onclick="selectLicense('Pro', 'https://whop.com/checkout/plan_JZtCsBfZFq2F')">
-                        <h3 class="font-pro text-[9px] mb-4 text-blue-400">Pro Elite</h3>
-                        <p class="text-2xl font-bold">499,99€</p>
-                        <div class="h-[1px] w-8 bg-blue-900 mx-auto my-4"></div>
-                        <p class="text-[9px] text-blue-500 uppercase leading-loose font-bold">5+1 Beats Free<br>Full Rights</p>
+                    <div class="glass p-6 rounded-2xl" onclick="selectPlan('Pro', '499€')">
+                        <h3 class="font-pro text-[9px] mb-2 text-blue-400">Pro Elite</h3>
+                        <p class="font-bold uppercase tracking-widest text-sm">499,99€</p>
                     </div>
                 </div>
             </div>
 
             <div class="step" id="step2">
-                <div class="max-w-md mx-auto space-y-6">
-                    <h2 class="font-pro text-center text-sm tracking-widest mb-8 uppercase">Contact Identity</h2>
-                    <div>
-                        <label class="text-[9px] uppercase tracking-widest text-gray-500 mb-2 block">Professional Email</label>
-                        <input type="email" id="email" class="w-full p-4 rounded-xl" placeholder="your@email.com">
-                    </div>
-                    <div>
-                        <label class="text-[9px] uppercase tracking-widest text-gray-500 mb-2 block">Instagram Username</label>
-                        <input type="text" id="insta" class="w-full p-4 rounded-xl" placeholder="@username">
-                    </div>
-                    <button onclick="validateContact()" class="w-full py-5 bg-white text-black font-bold rounded-xl uppercase tracking-widest text-[10px] hover:bg-gray-200 transition">Continue to Config</button>
+                <div class="max-w-md mx-auto">
+                    <h2 class="font-pro text-center text-sm mb-8 uppercase tracking-widest">Apply Now</h2>
+                    <input type="text" id="name" placeholder="Full Name">
+                    <input type="text" id="insta" placeholder="Instagram @username">
+                    <textarea id="desc" placeholder="Describe your project vision..." class="h-32"></textarea>
+                    <button onclick="saveApplication()" class="w-full py-4 bg-white text-black font-bold rounded-xl font-pro text-[10px] tracking-widest">Submit Application</button>
                 </div>
             </div>
 
-            <div class="step" id="step3">
-                <h2 class="font-pro text-center text-sm tracking-widest mb-10 uppercase">Sonic Atmosphere</h2>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <button class="glass px-10 py-5 rounded-full uppercase text-[10px] tracking-widest font-bold hover:border-blue-500" onclick="setMood('Dark')">Dark</button>
-                    <button class="glass px-10 py-5 rounded-full uppercase text-[10px] tracking-widest font-bold hover:border-blue-500" onclick="setMood('Melodic')">Melodic</button>
-                    <button class="glass px-10 py-5 rounded-full uppercase text-[10px] tracking-widest font-bold hover:border-blue-500" onclick="setMood('Aggressive')">Aggressive</button>
-                    <button class="glass px-10 py-5 rounded-full uppercase text-[10px] tracking-widest font-bold hover:border-blue-500" onclick="setMood('Club')">Club Banger</button>
-                </div>
-            </div>
-
-            <div class="step" id="step4">
-                <div class="max-w-2xl mx-auto">
-                    <h2 class="font-pro text-center text-sm tracking-widest mb-6 uppercase">Project Specifications</h2>
-                    <textarea id="desc" class="w-full p-6 rounded-3xl h-48 mb-6 text-sm leading-relaxed" placeholder="Describe your vision, reference tracks, or specific instructions..."></textarea>
-                    <button id="finalBtn" onclick="submitToTable()" class="w-full py-6 bg-blue-600 text-white font-bold rounded-2xl uppercase tracking-[0.3em] text-xs hover:bg-blue-700 transition shadow-2xl shadow-blue-500/20">
-                        Register Order & Pay
-                    </button>
-                </div>
+            <div class="step text-center" id="step3">
+                <i class="fas fa-check-circle text-blue-500 text-6xl mb-6"></i>
+                <h2 class="font-pro text-lg uppercase tracking-widest">Sent</h2>
+                <p class="text-gray-500 text-xs mt-4">I will contact you soon on Instagram.</p>
             </div>
         </div>
     </div>
 
     <script>
-        let orderData = { plan: '', checkoutUrl: '', email: '', insta: '', mood: '', desc: '' };
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRlsza95MmvIrLyl3081_bFdcq3wWwoaIx99SJjhHm8KInBLeEh3UeFoUJwajc10uPkg/exec';
+        let currentData = { plan: '', price: '' };
 
-        function selectLicense(plan, url) {
-            orderData.plan = plan;
-            orderData.checkoutUrl = url;
-            nextStep(1);
+        function selectPlan(p, pr) {
+            currentData.plan = p;
+            currentData.price = pr;
+            document.getElementById('step1').classList.remove('step-active');
+            document.getElementById('step2').classList.add('step-active');
         }
 
-        function validateContact() {
-            const e = document.getElementById('email').value;
-            const i = document.getElementById('insta').value;
-            if(!e || !i) return alert("Please fill contact info.");
-            orderData.email = e;
-            orderData.insta = i;
-            nextStep(2);
-        }
-
-        function setMood(mood) {
-            orderData.mood = mood;
-            nextStep(3);
-        }
-
-        function nextStep(current) {
-            document.getElementById(`step${current}`).classList.remove('step-active');
-            const next = current + 1;
-            document.getElementById(`step${next}`).classList.add('step-active');
-            document.getElementById('step-label').innerText = `Step 0${next} / 04`;
-        }
-
-        async function submitToTable() {
-            orderData.desc = document.getElementById('desc').value;
-            const btn = document.getElementById('finalBtn');
-            btn.innerText = "UPDATING DATABASE...";
-            btn.disabled = true;
-
-            const finalPayload = {
-                plan: orderData.plan,
-                email: orderData.email,
-                insta: orderData.insta,
-                desc: `Mood: ${orderData.mood} | Notes: ${orderData.desc}`
+        function saveApplication() {
+            const newApp = {
+                id: Date.now(),
+                date: new Date().toLocaleString('fr-FR'),
+                plan: currentData.plan,
+                name: document.getElementById('name').value,
+                insta: document.getElementById('insta').value,
+                desc: document.getElementById('desc').value
             };
 
-            try {
-                // Envoi à Google Sheets (mode no-cors car c'est une redirection web app)
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    cache: 'no-cache',
-                    body: JSON.stringify(finalPayload)
-                });
+            // Récupérer les anciennes candidatures
+            let apps = JSON.parse(localStorage.getItem('beatApplications') || '[]');
+            apps.push(newApp);
+            
+            // Sauvegarder
+            localStorage.setItem('beatApplications', JSON.stringify(apps));
 
-                // Attente légère pour l'envoi et redirection vers Whop
-                setTimeout(() => {
-                    window.location.href = orderData.checkoutUrl;
-                }, 500);
-
-            } catch (error) {
-                console.error("Error:", error);
-                window.location.href = orderData.checkoutUrl; // Redirige quand même pour ne pas perdre la vente
-            }
+            document.getElementById('step2').classList.remove('step-active');
+            document.getElementById('step3').classList.add('step-active');
         }
     </script>
 </body>
