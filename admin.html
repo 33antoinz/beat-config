@@ -2,60 +2,92 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard | Artist Signature</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #0a0a0a; color: white; font-family: 'Inter', sans-serif; padding: 40px; }
-        .card { background: #111; border: 1px solid #222; border-radius: 20px; padding: 25px; margin-bottom: 20px; transition: 0.3s; }
+        body { background: #000; color: white; font-family: 'Inter', sans-serif; padding: 40px; }
+        .card { background: #0a0a0a; border: 1px solid #222; border-radius: 20px; padding: 30px; margin-bottom: 25px; transition: 0.3s; }
         .card:hover { border-color: #444; }
+        .label { color: #555; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 5px; display: block; }
     </style>
 </head>
 <body>
     <div class="max-w-5xl mx-auto">
-        <div class="flex justify-between items-center mb-12">
-            <h1 class="text-2xl font-bold tracking-tighter uppercase">Candidatures Reçues</h1>
-            <button onclick="clearData()" class="text-xs text-red-500 border border-red-500/30 px-4 py-2 rounded-full uppercase">Réinitialiser</button>
+        <div class="flex justify-between items-center mb-16">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tighter uppercase">Candidatures</h1>
+                <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Artist Signature Program</p>
+            </div>
+            <button onclick="clearData()" class="text-[10px] text-red-500 border border-red-500/30 px-5 py-2 rounded-full uppercase font-bold hover:bg-red-500 hover:text-white transition">Réinitialiser tout</button>
         </div>
 
-        <div id="container"></div>
+        <div id="container">
+            </div>
     </div>
 
     <script>
         function load() {
             const data = JSON.parse(localStorage.getItem('beatApps') || '[]');
             const container = document.getElementById('container');
-            container.innerHTML = data.length ? '' : '<p class="text-gray-600">Aucune candidature pour le moment.</p>';
+            container.innerHTML = data.length ? '' : '<p class="text-gray-600 text-center py-20 uppercase tracking-widest text-xs">Aucune candidature pour le moment.</p>';
 
+            // On affiche la plus récente en premier
             data.reverse().forEach(app => {
                 container.innerHTML += `
                     <div class="card">
-                        <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                             <div>
-                                <h2 class="text-xl font-bold">${app.name}</h2>
-                                <p class="text-blue-500 font-bold text-sm">${app.insta}</p>
+                                <h2 class="text-2xl font-bold">${app.name}</h2>
+                                <p class="text-blue-500 font-bold text-lg">${app.insta}</p>
                             </div>
-                            <span class="text-[10px] bg-white text-black px-3 py-1 rounded-full font-black uppercase">${app.plan}</span>
+                            <div class="text-right">
+                                <span class="bg-white text-black px-4 py-2 rounded-lg text-xs font-black uppercase tracking-tighter">${app.plan}</span>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 text-xs">
-                            <div class="bg-white/5 p-3 rounded-lg"><span class="text-gray-500 block uppercase mb-1">Mood</span>${app.mood}</div>
-                            <div class="bg-white/5 p-3 rounded-lg"><span class="text-gray-500 block uppercase mb-1">BPM</span>${app.bpm}</div>
-                            <div class="bg-white/5 p-3 rounded-lg"><span class="text-gray-500 block uppercase mb-1">Email</span>${app.email}</div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                            <div>
+                                <span class="label">Genre</span>
+                                <p class="text-sm font-medium">${app.genre || 'Non précisé'}</p>
+                            </div>
+                            <div>
+                                <span class="label">Ambiance</span>
+                                <p class="text-sm font-medium">${app.mood || 'Non précisée'}</p>
+                            </div>
+                            <div>
+                                <span class="label">Tempo / BPM</span>
+                                <p class="text-sm font-medium">${app.bpm || 'Libre'}</p>
+                            </div>
+                            <div>
+                                <span class="label">Email</span>
+                                <p class="text-sm font-medium text-gray-400">${app.email}</p>
+                            </div>
                         </div>
-                        <div class="text-sm text-gray-400 border-t border-white/5 pt-4 italic">
-                            "${app.notes || 'Pas de notes.'}"
+
+                        <div class="bg-white/5 p-6 rounded-xl">
+                            <span class="label">Note du projet</span>
+                            <p class="text-gray-300 text-sm leading-relaxed italic">
+                                "${app.notes || 'Aucune instruction supplémentaire.'}"
+                            </p>
                         </div>
-                        <p class="text-[9px] text-gray-700 mt-4 uppercase tracking-widest text-right italic">${app.date}</p>
+
+                        <div class="mt-6 flex justify-between items-center">
+                            <p class="text-[9px] text-gray-600 uppercase tracking-widest font-bold">${app.date}</p>
+                            <a href="https://instagram.com/${app.insta.replace('@', '')}" target="_blank" class="text-[10px] bg-blue-600 px-3 py-1 rounded-md font-bold uppercase hover:bg-blue-700 transition">Ouvrir IG</a>
+                        </div>
                     </div>
                 `;
             });
         }
 
         function clearData() {
-            if(confirm("Effacer tout ?")) {
+            if(confirm("Attention : Cela va supprimer définitivement toutes les candidatures stockées sur cet appareil. Continuer ?")) {
                 localStorage.removeItem('beatApps');
                 load();
             }
         }
+
         load();
     </script>
 </body>
