@@ -12,14 +12,12 @@
         .step-active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* Boutons Options */
         .option-btn { 
             border: 1px solid #333; padding: 20px; border-radius: 12px; 
             text-align: center; transition: all 0.2s; cursor: pointer;
             font-size: 1.1rem; font-weight: 400;
         }
         .option-btn:hover { border-color: #fff; background: #fff; color: #000; }
-        .option-selected { background: #fff !important; color: #000 !important; border-color: #fff !important; font-weight: 700; }
 
         input, textarea { 
             background: transparent !important; border-bottom: 2px solid #333 !important; 
@@ -61,20 +59,20 @@
             <div class="step" id="step3">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">L'ambiance du projet ?</h1>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="option-btn" onclick="saveData('mood', 'Sombre / Dark', 2)">DARK</div>
-                    <div class="option-btn" onclick="saveData('mood', 'Mélodique', 2)">MELODIC</div>
-                    <div class="option-btn" onclick="saveData('mood', 'Énergique', 2)">ENERGY</div>
-                    <div class="option-btn" onclick="saveData('mood', 'Chill', 2)">CHILL</div>
+                    <div class="option-btn" onclick="saveData('mood', 'Sombre / Dark', 3)">DARK</div>
+                    <div class="option-btn" onclick="saveData('mood', 'Mélodique', 3)">MELODIC</div>
+                    <div class="option-btn" onclick="saveData('mood', 'Énergique', 3)">ENERGY</div>
+                    <div class="option-btn" onclick="saveData('mood', 'Chill', 3)">CHILL</div>
                 </div>
             </div>
 
             <div class="step" id="step4">
                 <h1 class="text-3xl md:text-5xl font-bold mb-10 leading-tight">Vitesse (BPM) ?</h1>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="option-btn" onclick="saveData('bpm', 'Lent (80-110)', 3)">LENT</div>
-                    <div class="option-btn" onclick="saveData('bpm', 'Standard (120-140)', 3)">STANDARD</div>
-                    <div class="option-btn" onclick="saveData('bpm', 'Rapide (150+)', 3)">RAPIDE</div>
-                    <div class="option-btn" onclick="saveData('bpm', 'Libre', 3)">AU CHOIX</div>
+                    <div class="option-btn" onclick="saveData('bpm', 'Lent (80-110)', 4)">LENT</div>
+                    <div class="option-btn" onclick="saveData('bpm', 'Standard (120-140)', 4)">STANDARD</div>
+                    <div class="option-btn" onclick="saveData('bpm', 'Rapide (150+)', 4)">RAPIDE</div>
+                    <div class="option-btn" onclick="saveData('bpm', 'Libre', 4)">AU CHOIX</div>
                 </div>
             </div>
 
@@ -83,7 +81,7 @@
                 <input type="text" id="name" placeholder="Nom Complet">
                 <input type="email" id="email" placeholder="Adresse Email">
                 <input type="text" id="insta" placeholder="Instagram @compte">
-                <button onclick="nextStep(4)" class="btn-next mt-4">Continuer</button>
+                <button onclick="nextStep(5)" class="btn-next mt-4">Continuer</button>
             </div>
 
             <div class="step" id="step6">
@@ -123,6 +121,7 @@
             appData.notes = document.getElementById('notes').value;
             appData.date = new Date().toLocaleString('fr-FR');
 
+            // Stockage dans 'beatApps' pour correspondre à ton admin.html
             let allApps = JSON.parse(localStorage.getItem('beatApps') || '[]');
             allApps.push(appData);
             localStorage.setItem('beatApps', JSON.stringify(allApps));
