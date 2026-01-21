@@ -33,7 +33,7 @@
 <body class="p-6 md:p-20">
 
     <div class="max-w-3xl mx-auto">
-        <div id="progress" class="text-[10px] tracking-[0.3em] text-gray-600 mb-10 uppercase font-bold">Question 1 / 5</div>
+        <div id="progress" class="text-[10px] tracking-[0.3em] text-gray-600 mb-10 uppercase font-bold">Question 1 / 6</div>
 
         <div id="configurator">
             <div class="step step-active" id="step1">
@@ -112,7 +112,7 @@
             const next = current + 1;
             if(document.getElementById(`step${next}`)) {
                 document.getElementById(`step${next}`).classList.add('step-active');
-                document.getElementById('progress').innerText = `Question ${next} / 5`;
+                document.getElementById('progress').innerText = `Question ${next} / 6`;
             }
         }
 
@@ -127,7 +127,7 @@
             allApps.push(appData);
             localStorage.setItem('beatApps', JSON.stringify(allApps));
 
-            document.getElementById('step5').classList.remove('step-active');
+            document.getElementById('step6').classList.remove('step-active');
             document.getElementById('success').classList.add('step-active');
             document.getElementById('progress').style.display = 'none';
         }
